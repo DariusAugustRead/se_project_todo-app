@@ -9,16 +9,28 @@ class FormValidator {
     this._formEl = formEl;
   }
 
+  _showInputError(formEl, inputElement, errorMsg, settings) {
+    const errorMsgElement = formEl.querySelector(`#${inputElement.id}-error`);
+    errorMsgElement.textContent = errorMsg;
+    inputElement.classList.add(settings.inputErrorClass);
+  }
+
+  _hideInputError(formEl, inputElement, config) {
+    const errorMsgElement = formEl.querySelector(`#${inputElement.id}-error`);
+    errorMsgElement.textContent = "";
+    inputElement.classList.remove(settings.inputErrorClass);
+  }
+
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      showInputError(
+      this._showInputError(
         this._formEl,
-        this._inputElement,
-        this._inputElement.validationMessage,
+        inputElement,
+        inputElement.validationMessage,
         this._settings
       );
     } else {
-      hideInputError(formEl, inputElement, settings);
+      this._hideInputError(formEl, inputElement, settings);
     }
   }
 
@@ -30,10 +42,10 @@ class FormValidator {
 
   _toggleButtonState(buttonElement) {
     if (this._hasInvalidInput(this._inputList)) {
-      buttonElement.classlist.add(this._inactiveButtonClass);
+      buttonElement.classList.add(this._inactiveButtonClass);
       buttonElement.disabled = true;
     } else {
-      buttonElement.classlist.remove(this._inactiveButtonClass);
+      buttonElement.classList.remove(this._inactiveButtonClass);
       buttonElement.disabled = false;
     }
   }
@@ -56,7 +68,20 @@ class FormValidator {
     });
   }
 
+  resetValidation() {
+    this._formEl.removeEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
+  }
+
+  _hasInvalidInput(inputList) {
+    return inputList.some((input) => {
+      return !input.validity.valid;
+    });
+  }
+
   enableValidation() {
+    this._formEl = document.querySelector(this._formSelector);
     this._formEl.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
@@ -66,3 +91,5 @@ class FormValidator {
 }
 
 export default FormValidator;
+
+console.log(inputElement);
