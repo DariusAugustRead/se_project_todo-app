@@ -46,9 +46,12 @@ class Todo {
 
       this._generateCheckBoxEl();
       this._setEventListeners();
-
-      return this._todoElement;
+    } else {
+      this._generateCheckBoxEl();
+      this._setEventListeners();
     }
+
+    return this._todoElement;
   }
 }
 export default Todo;
