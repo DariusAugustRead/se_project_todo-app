@@ -50,8 +50,8 @@ addTodoForm.addEventListener("submit", (evt) => {
 
   const values = { name, date, id };
   const todo = generateTodo(values);
-  renderTodo();
-  _toggleButtonState();
+  renderTodo(values);
+  newTodoValidator._toggleButtonState();
   newTodoValidator.resetValidation();
 
   closeModal(addTodoPopup);
