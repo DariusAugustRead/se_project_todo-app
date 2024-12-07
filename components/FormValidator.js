@@ -13,7 +13,8 @@ class FormValidator {
     const errorMsgElement = this._formEl.querySelector(
       `#${inputElement.id}-error`
     );
-    errorMsgElement.textContent = this._inputErrorClass;
+    errorMsgElement.textContent = inputElement.validationMessage;
+    errorMsgElement.classList.add(this._errorClass);
     inputElement.classList.add(this._inputErrorClass);
   }
 
@@ -22,6 +23,7 @@ class FormValidator {
       `#${inputElement.id}-error`
     );
     errorMsgElement.textContent = "";
+    errorMsgElement.classList.remove(this._errorClass);
     inputElement.classList.remove(this._inputErrorClass);
   }
 
