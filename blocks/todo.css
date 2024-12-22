@@ -30,6 +30,10 @@
   background-image: url(../images/checkbox.svg);
 }
 
+.todo__completed:hover {
+  border: 2px solid #181818;
+}
+
 .todo__name {
   font-weight: 500;
   color: #181818;
@@ -72,6 +76,10 @@
 
 .todo__delete-btn::before {
   content: "Delete";
+}
+
+.todo__delete-btn:hover {
+  opacity: 50%;
 }
 
 @media screen and (max-width: 630px) {
