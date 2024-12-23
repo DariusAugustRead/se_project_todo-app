@@ -14,7 +14,22 @@ const todosList = document.querySelector(".todos__list");
 
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
-  handleFormSubmit: () => {},
+  handleFormSubmit: (formInput) => {
+    const name = formInput.name;
+    const dateInput = formInput.date;
+
+    // Create a date object and adjust for timezone
+    const date = new Date(dateInput);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+    const id = uuidv4();
+
+    const values = { name, date, id };
+    renderTodo(values);
+    newTodoValidator.resetValidation();
+
+    addTodoPopup.close();
+  },
 });
 addTodoPopup.setEventListeners();
 
@@ -44,7 +59,7 @@ addTodoButton.addEventListener("click", () => {
 });
 
 // addTodoForm.addEventListener("submit", (evt) => {
-//   evt.preventDefault();
+//
 //   const name = evt.target.name.value;
 //   const dateInput = evt.target.date.value;
 
