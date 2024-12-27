@@ -33,10 +33,13 @@ const addTodoPopup = new PopupWithForm({
 });
 addTodoPopup.setEventListeners();
 
-function handleCheck(evt) {
-  const isCompleted = evt.target.checked;
-  todoCounter.updateCompleted(isCompleted);
-  console.log(handleCheck);
+function handleCheck(completed) {
+  todoCounter.updateCompleted(completed);
+}
+
+function handleDelete(completed) {
+  todoCounter.updateCompleted(false);
+  todoCounter.updateTotal(false);
 }
 
 const renderTodo = (item) => {
@@ -45,8 +48,9 @@ const renderTodo = (item) => {
 };
 
 const generateTodo = (data) => {
-  const todo = new Todo(data, "#todo-template", handleCheck);
+  const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
   const todoElement = todo.getView();
+
   return todoElement;
 };
 
