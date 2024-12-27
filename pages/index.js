@@ -38,8 +38,12 @@ function handleCheck(completed) {
 }
 
 function handleDelete(completed) {
-  todoCounter.updateCompleted(false);
-  todoCounter.updateTotal(false);
+  if (completed) {
+    todoCounter.updateCompleted(false);
+    todoCounter.updateTotal(false);
+  } else {
+    todoCounter.updateTotal(false);
+  }
 }
 
 const renderTodo = (item) => {
@@ -56,9 +60,7 @@ const generateTodo = (data) => {
 
 const section = new Section({
   items: initialTodos,
-  renderer: (item) => {
-    renderTodo(item);
-  },
+  renderer: renderTodo,
   containerSelector: ".todos__list",
 });
 
